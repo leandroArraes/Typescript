@@ -149,3 +149,91 @@ showArraysItems(a2);
 
 // classes
 
+class User {
+    name;
+    role;
+    isApproved;
+
+    constructor(name: string, role: string ,isApproved: boolean ){
+        this.name = name;
+        this.role = role;
+        this.isApproved = isApproved;
+    }
+    showUserName(){
+        console.log(`O nome do usuário é ${this.name}`);
+    }
+    showUserRole(canshow: boolean): void{
+        if (canshow) {
+            console.log(`Idade do Usuário é: ${this.role}`);
+            return;
+        }
+        console.log('informação Restrita!');
+    }
+}
+
+const usuario = new User('Leandro',"Programador",true);
+console.log(usuario);
+usuario.showUserName();
+usuario.showUserRole(true);
+
+
+// interfaces em classes
+// usar quando as classes são parecidas 
+interface Ivehicle{
+    brand: string
+    showBrand():void
+}
+
+class Car implements Ivehicle{
+    brand: string;
+    wheels
+
+    constructor(brand:string, wheels:number){
+        this.brand = brand
+        this.wheels = wheels
+    }
+    showBrand(): void {
+        console.log(`A marca do carro é ${this.brand}`)
+    }
+}
+
+const fusca = new Car('w',4);
+console.log(fusca);
+
+// Herança
+
+class SuperCar extends Car{
+    engine
+
+    constructor(brand:string, wheels: number, engine: number){
+        super(brand, wheels)
+        this.engine = engine
+    }
+}
+
+const a4 = new SuperCar("audi",4,2.0);
+console.log(a4);
+
+// Decorators
+
+//constructor decorator
+function BaseParameters() {
+    return function <T extends { new (...args:any[]): {} }>(constructor : T){
+        return class extends constructor{
+            id = Math.random();
+            createdAt = new Date();
+        };
+    };
+}
+
+@BaseParameters()
+class Person {
+    name;
+    
+    constructor(name:string){
+        this.name = name;
+    }
+}
+
+const meuNome = new Person("Leandro Arraes");
+console.log(meuNome);
